@@ -27,8 +27,6 @@ struct NumberButton: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-  NumberButton(
-    text: "Hello",
-  ) {}
-  .padding()
+  NumberButton(text: "Hello") {}
+    .padding()
 }
