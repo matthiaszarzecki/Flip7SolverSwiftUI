@@ -11,7 +11,7 @@ import SwiftUI
 struct Flip7CalculatorApp: App {
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      Flip7View()
     }
   }
 }
