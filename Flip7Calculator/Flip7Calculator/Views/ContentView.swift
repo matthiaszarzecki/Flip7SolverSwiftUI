@@ -327,6 +327,14 @@ struct ContentView: View {
       Text("Flip7 Calculator")
         .padding(.bottom, 48)
 
+      DuolingoButton(
+        title: "Continue",
+        backgroundColor: Color(red: 88/255, green: 204/255, blue: 2/255),
+        shadowColor: Color(red: 70/255, green: 168/255, blue: 0/255)
+      ) {
+        print("Continue tapped")
+      }
+
       Text("Cards Total: \(viewModel.numberOfAllCards)")
       Text("Cards Remaining: \(viewModel.numberOfCardsRemaining())")
 
@@ -471,36 +479,6 @@ struct ContentView: View {
       }
     }
     .padding()
-  }
-}
-
-extension Double {
-  func round(to places: Int) -> Double {
-    let divisor = pow(10.0, Double(places))
-    return (self * divisor).rounded() / divisor
-  }
-
-  func asPercentage() -> String {
-    "\(self.round(to: 2) * 100)%"
-  }
-}
-
-struct NumberButton: View {
-  let text: String
-  let action: () -> Void
-
-  var body: some View {
-    Button(
-      action: action,
-      label: {
-        Text(text)
-          .foregroundStyle(Color.white)
-          .padding()
-          .background(Color.gray)
-          .cornerRadius(12)
-          .shadow(radius: 6)
-      }
-    )
   }
 }
 
