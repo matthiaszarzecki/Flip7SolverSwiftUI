@@ -10,12 +10,23 @@ import SwiftUI
 // TODO: Figure out pressed down variant - no lower shaddows, smaller, moved downwards
 
 struct ExtrudedButton: View {
-  let text: String
-  let backgroundColor: Color = Color(red: 88/255, green: 204/255, blue: 2/255)
+  private let text: String
+  private let color: Color
+  private let action: () -> Void
+  private let shadowColor: Color
 
-  // TODO: Automatically calculate shadow darker from main color
-  let shadowColor: Color = Color(red: 70/255, green: 168/255, blue: 0/255)
-  let action: () -> Void
+  init(
+    text: String,
+    color: Color,
+    action: @escaping () -> Void
+  ) {
+    self.text = text
+    self.color = color
+    self.action = action
+
+    // TODO: Automatically calculate shadow darker from main color
+    shadowColor = Color(red: 70/255, green: 168/255, blue: 0/255)
+  }
 
   var body: some View {
     Button(action: action) {
@@ -23,7 +34,7 @@ struct ExtrudedButton: View {
         .font(.system(size: 17, weight: .heavy))
         .foregroundColor(.white)
         .padding()
-        .background(backgroundColor)
+        .background(color)
         .cornerRadius(16)
         .overlay(
           RoundedRectangle(cornerRadius: 16)
@@ -41,6 +52,10 @@ struct ExtrudedButton: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-  ExtrudedButton(text: "Continue") {}
-    .padding()
+  ExtrudedButton(
+    text: "Continue",
+    // TODO: Move colors to constants
+    color: Color(red: 88/255, green: 204/255, blue: 2/255)
+  ) {}
+  .padding()
 }
