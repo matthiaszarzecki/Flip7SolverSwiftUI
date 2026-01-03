@@ -22,8 +22,6 @@ struct ExtrudedButton: View {
       Text(text)
         .font(.system(size: 17, weight: .heavy))
         .foregroundColor(.white)
-        //.frame(maxWidth: .infinity)
-        //.padding(.vertical, 18)
         .padding()
         .background(backgroundColor)
         .cornerRadius(16)
@@ -32,6 +30,7 @@ struct ExtrudedButton: View {
             .stroke(shadowColor, lineWidth: 0)
         )
     }
+    // "Extruded" bit
     .background(
       RoundedRectangle(cornerRadius: 16)
         .fill(shadowColor)
