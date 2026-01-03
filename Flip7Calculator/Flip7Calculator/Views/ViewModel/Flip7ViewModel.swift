@@ -7,8 +7,34 @@
 
 import Combine
 
+struct CardStates {
+  var numberOfZeroes = 1
+  var numberOfOnes = 1
+  var numberOfTwos = 2
+  var numberOfThrees = 3
+  var numberOfFours = 4
+  var numberOfFives = 5
+  var numberOfSixes = 6
+  var numberOfSevens = 7
+  var numberOfEights = 8
+  var numberOfNines = 9
+  var numberOfTens = 10
+  var numberOfElevens = 11
+  var numberOfTwelves = 12
+
+  var numberOfFlipThrees = 3
+  var numberOfSecondChances = 3
+  var numberOfFreezes = 3
+  var numberOfTimesTwos = 1
+  var numberOfPlusTwos = 1
+  var numberOfPlusFours = 1
+  var numberOfPlusSixes = 1
+  var numberOfPlusEights = 1
+  var numberOfPlusTens = 1
+}
+
 class Flip7ViewModel: ObservableObject {
-  @Published var numberOfZeroes = 1
+  /*@Published var numberOfZeroes = 1
   @Published var numberOfOnes = 1
   @Published var numberOfTwos = 2
   @Published var numberOfThrees = 3
@@ -30,15 +56,19 @@ class Flip7ViewModel: ObservableObject {
   @Published var numberOfPlusFours = 1
   @Published var numberOfPlusSixes = 1
   @Published var numberOfPlusEights = 1
-  @Published var numberOfPlusTens = 1
+  @Published var numberOfPlusTens = 1*/
+
+  @Published var cardStates = CardStates()
 
   // TODO: Start-Numbers of cards? For reseting
   // If card is not 0-12, do not count towards probability
   // func to check for that - see if raw value is between 0 and 99
 
+  // TODO: Use a dict for saving amounts of cards
+
   let numberOfAllCards = 1 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12 + 3 + 3 + 3 + 1 + 1 + 1 + 1 + 1 + 1
   func numberOfCardsRemaining() -> Int {
-    numberOfZeroes + numberOfOnes + numberOfTwos + numberOfThrees + numberOfFours + numberOfFives + numberOfSixes + numberOfSevens + numberOfEights + numberOfNines + numberOfTens + numberOfElevens + numberOfTwelves + numberOfFlipThrees + numberOfSecondChances + numberOfFreezes + numberOfTimesTwos + numberOfPlusTwos + numberOfPlusFours + numberOfPlusSixes + numberOfPlusEights + numberOfPlusTens
+    cardStates.numberOfZeroes + cardStates.numberOfOnes + cardStates.numberOfTwos + cardStates.numberOfThrees + cardStates.numberOfFours + cardStates.numberOfFives + cardStates.numberOfSixes + cardStates.numberOfSevens + cardStates.numberOfEights + cardStates.numberOfNines + cardStates.numberOfTens + cardStates.numberOfElevens + cardStates.numberOfTwelves + cardStates.numberOfFlipThrees + cardStates.numberOfSecondChances + cardStates.numberOfFreezes + cardStates.numberOfTimesTwos + cardStates.numberOfPlusTwos + cardStates.numberOfPlusFours + cardStates.numberOfPlusSixes + cardStates.numberOfPlusEights + cardStates.numberOfPlusTens
   }
 
   @Published var myCurrentCards: [Flip7CardType] = []
@@ -47,7 +77,6 @@ class Flip7ViewModel: ObservableObject {
     if myCurrentCards.contains(.secondChance) {
       return 0.asPercentage()
     }
-
 
     var numberOfDangerousCards = 0
 
@@ -64,53 +93,54 @@ class Flip7ViewModel: ObservableObject {
   }
 
   private func getAmountofCards(for card: Flip7CardType) -> Int {
-    switch card {
-    case .zero:
-      return numberOfZeroes
-    case .one:
-      return numberOfOnes
-    case .two:
-      return numberOfTwos
-    case .three:
-      return numberOfThrees
-    case .four:
-      return numberOfFours
-    case .five:
-      return numberOfFives
-    case .six:
-      return numberOfSixes
-    case .seven:
-      return numberOfSevens
-    case .eight:
-      return numberOfEights
-    case .nine:
-      return numberOfNines
-    case .ten:
-      return numberOfTens
-    case .eleven:
-      return numberOfElevens
-    case .twelve:
-      return numberOfTwelves
-    case .flipThree:
-      return numberOfFlipThrees
-    case .secondChance:
-      return numberOfSecondChances
-    case .freeze:
-      return numberOfFreezes
-    case .timesTwo:
-      return numberOfTimesTwos
-    case .plusTwo:
-      return numberOfPlusTwos
-    case .plusFour:
-      return numberOfPlusFours
-    case .plusSix:
-      return numberOfPlusSixes
-    case .plusEight:
-      return numberOfPlusEights
-    case .plusTen:
-      return numberOfPlusTens
+      switch card {
+      case .zero:
+        return cardStates.numberOfZeroes
+      case .one:
+        return cardStates.numberOfOnes
+      case .two:
+        return cardStates.numberOfTwos
+      case .three:
+        return cardStates.numberOfThrees
+      case .four:
+        return cardStates.numberOfFours
+      case .five:
+        return cardStates.numberOfFives
+      case .six:
+        return cardStates.numberOfSixes
+      case .seven:
+        return cardStates.numberOfSevens
+      case .eight:
+        return cardStates.numberOfEights
+      case .nine:
+        return cardStates.numberOfNines
+      case .ten:
+        return cardStates.numberOfTens
+      case .eleven:
+        return cardStates.numberOfElevens
+      case .twelve:
+        return cardStates.numberOfTwelves
+      case .flipThree:
+        return cardStates.numberOfFlipThrees
+      case .secondChance:
+        return cardStates.numberOfSecondChances
+      case .freeze:
+        return cardStates.numberOfFreezes
+      case .timesTwo:
+        return cardStates.numberOfTimesTwos
+      case .plusTwo:
+        return cardStates.numberOfPlusTwos
+      case .plusFour:
+        return cardStates.numberOfPlusFours
+      case .plusSix:
+        return cardStates.numberOfPlusSixes
+      case .plusEight:
+        return cardStates.numberOfPlusEights
+      case .plusTen:
+        return cardStates.numberOfPlusTens
+      }
     }
-  }
+
 
   func myCurrentCardDisplay() -> String {
     var returnString = ""
@@ -186,98 +216,98 @@ class Flip7ViewModel: ObservableObject {
 
     switch cardType {
     case .zero:
-      numberOfZeroes -= 1
+      cardStates.numberOfZeroes -= 1
     case .one:
-      numberOfOnes -= 1
+      cardStates.numberOfOnes -= 1
     case .two:
-      numberOfTwos -= 1
+      cardStates.numberOfTwos -= 1
     case .three:
-      numberOfThrees -= 1
+      cardStates.numberOfThrees -= 1
     case .four:
-      numberOfFours -= 1
+      cardStates.numberOfFours -= 1
     case .five:
-      numberOfFives -= 1
+      cardStates.numberOfFives -= 1
     case .six:
-      numberOfSixes -= 1
+      cardStates.numberOfSixes -= 1
     case .seven:
-      numberOfSevens -= 1
+      cardStates.numberOfSevens -= 1
     case .eight:
-      numberOfEights -= 1
+      cardStates.numberOfEights -= 1
     case .nine:
-      numberOfNines -= 1
+      cardStates.numberOfNines -= 1
     case .ten:
-      numberOfTens -= 1
+      cardStates.numberOfTens -= 1
     case .eleven:
-      numberOfElevens -= 1
+      cardStates.numberOfElevens -= 1
     case .twelve:
-      numberOfTwelves -= 1
+      cardStates.numberOfTwelves -= 1
     case .flipThree:
-      numberOfFlipThrees -= 1
+      cardStates.numberOfFlipThrees -= 1
     case .secondChance:
-      numberOfSecondChances -= 1
+      cardStates.numberOfSecondChances -= 1
     case .freeze:
-      numberOfFreezes -= 1
+      cardStates.numberOfFreezes -= 1
     case .timesTwo:
-      numberOfTimesTwos -= 1
+      cardStates.numberOfTimesTwos -= 1
     case .plusTwo:
-      numberOfPlusTwos -= 1
+      cardStates.numberOfPlusTwos -= 1
     case .plusFour:
-      numberOfPlusFours -= 1
+      cardStates.numberOfPlusFours -= 1
     case .plusSix:
-      numberOfPlusSixes -= 1
+      cardStates.numberOfPlusSixes -= 1
     case .plusEight:
-      numberOfPlusEights -= 1
+      cardStates.numberOfPlusEights -= 1
     case .plusTen:
-      numberOfPlusTens -= 1
+      cardStates.numberOfPlusTens -= 1
     }
   }
 
   func otherCardReceived(cardType: Flip7CardType) {
     switch cardType {
     case .zero:
-      numberOfZeroes -= 1
+      cardStates.numberOfZeroes -= 1
     case .one:
-      numberOfOnes -= 1
+      cardStates.numberOfOnes -= 1
     case .two:
-      numberOfTwos -= 1
+      cardStates.numberOfTwos -= 1
     case .three:
-      numberOfThrees -= 1
+      cardStates.numberOfThrees -= 1
     case .four:
-      numberOfFours -= 1
+      cardStates.numberOfFours -= 1
     case .five:
-      numberOfFives -= 1
+      cardStates.numberOfFives -= 1
     case .six:
-      numberOfSixes -= 1
+      cardStates.numberOfSixes -= 1
     case .seven:
-      numberOfSevens -= 1
+      cardStates.numberOfSevens -= 1
     case .eight:
-      numberOfEights -= 1
+      cardStates.numberOfEights -= 1
     case .nine:
-      numberOfNines -= 1
+      cardStates.numberOfNines -= 1
     case .ten:
-      numberOfTens -= 1
+      cardStates.numberOfTens -= 1
     case .eleven:
-      numberOfElevens -= 1
+      cardStates.numberOfElevens -= 1
     case .twelve:
-      numberOfTwelves -= 1
+      cardStates.numberOfTwelves -= 1
     case .flipThree:
-      numberOfFlipThrees -= 1
+      cardStates.numberOfFlipThrees -= 1
     case .secondChance:
-      numberOfSecondChances -= 1
+      cardStates.numberOfSecondChances -= 1
     case .freeze:
-      numberOfFreezes -= 1
+      cardStates.numberOfFreezes -= 1
     case .timesTwo:
-      numberOfTimesTwos -= 1
+      cardStates.numberOfTimesTwos -= 1
     case .plusTwo:
-      numberOfPlusTwos -= 1
+      cardStates.numberOfPlusTwos -= 1
     case .plusFour:
-      numberOfPlusFours -= 1
+      cardStates.numberOfPlusFours -= 1
     case .plusSix:
-      numberOfPlusSixes -= 1
+      cardStates.numberOfPlusSixes -= 1
     case .plusEight:
-      numberOfPlusEights -= 1
+      cardStates.numberOfPlusEights -= 1
     case .plusTen:
-      numberOfPlusTens -= 1
+      cardStates.numberOfPlusTens -= 1
     }
   }
 }

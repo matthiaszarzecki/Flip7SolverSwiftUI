@@ -40,7 +40,7 @@ struct Flip7View: View {
             Text("Others' Cards")
 
             ButtonAssembly(
-              viewModel: viewModel,
+              cardStates: viewModel.cardStates,
               color: .red,
               cardTappedAction: viewModel.otherCardReceived
             )
@@ -55,7 +55,7 @@ struct Flip7View: View {
             Text(viewModel.myCurrentCardDisplay())
 
             ButtonAssembly(
-              viewModel: viewModel,
+              cardStates: viewModel.cardStates,
               color: .green,
               cardTappedAction: viewModel.myCardReceived
             )
